@@ -47,6 +47,9 @@ normed = preproc.image(img)
 #Completed model includes two files: .json & .params
 #This example file was download from: http://data.dmlc.ml/mxnet/models/imagenet/resnet/18-layers/
 
+download.file(url = 'http://data.dmlc.ml/mxnet/models/imagenet/resnet/18-layers/resnet-18-0000.params', destfile = 'resnet-18-0000.params', method = 'curl')
+download.file(url = 'http://data.dmlc.ml/mxnet/models/imagenet/resnet/18-layers/resnet-18-symbol.json', destfile = 'resnet-18-symbol.json', method = 'curl')
+
 res_model = mx.model.load('resnet-18', 0)
 label_names = readLines('http://data.dmlc.ml/mxnet/models/imagenet/synset.txt')
 
