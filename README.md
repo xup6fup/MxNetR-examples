@@ -41,4 +41,4 @@ Tutorial 1-5 includes a **vanishing gradient problem**, and this example can hel
 
 License
 -------
-MXNet R-package is licensed under [Apache-2.0](./LICENSE) license.
+MXNet R-package is licensed under [Apache-2.0](https://github.com/apache/incubator-mxnet/blob/master/R-package/LICENSE) license.
