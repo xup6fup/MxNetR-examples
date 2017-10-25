@@ -38,12 +38,19 @@ my_iter = my_iterator(batch_size)
 
 #3. Define the model architecture (m-log loss function)
 
+#Tip: for the deeper and complex model, you can use 'mx.symbol.infer.shape' function to check the output datashape
+
 data = mx.symbol.Variable(name = 'data')
 label = mx.symbol.Variable(name = 'label')
-fc_layer = mx.symbol.FullyConnected(data = data, num.hidden = 3, name = 'fc_layer')
-softmax_layer = mx.symbol.SoftmaxOutput(data = fc_layer, label = label, name = 'sofmax_layer')
+fc_layer_1 = mx.symbol.FullyConnected(data = data, num.hidden = 12, name = 'fc_layer_1')
+#mx.symbol.infer.shape(fc_layer_1, data = c(4, 150))$out.shapes
+fc_layer_2 = mx.symbol.FullyConnected(data = fc_layer_1, num.hidden = 3, name = 'fc_layer_2')
+#mx.symbol.infer.shape(fc_layer_2, data = c(4, 150))$out.shapes
+softmax_layer = mx.symbol.SoftmaxOutput(data = fc_layer_2, label = label, name = 'sofmax_layer')
+#mx.symbol.infer.shape(softmax_layer, data = c(4, 150), label = c(3, 150))$out.shapes
 m_logloss = 0 - mx.symbol.mean(mx.symbol.broadcast_mul(mx.symbol.log(softmax_layer), label))
 out_layer = mx.symbol.MakeLoss(m_logloss, name = 'm_logloss')
+#mx.symbol.infer.shape(out_layer, data = c(4, 150), label = c(3, 150))$out.shapes
 
 input_names = mxnet:::mx.model.check.arguments(out_layer)
 
@@ -61,7 +68,7 @@ mx.exec.update.aux.arrays(my_executor, new_arg$aux.params, match.name = TRUE)
 
 #4-3. Define the optimizer
 
-my_optimizer = mx.opt.create(name = "sgd", learning.rate = 0.1, momentum = 0, wd = 0, rescale.grad = 1, clip_gradient = 1)
+my_optimizer = mx.opt.create(name = "sgd", learning.rate = 0.005, momentum = 0, wd = 0, rescale.grad = 1, clip_gradient = 1)
 my_updater = mx.opt.get.updater(optimizer = my_optimizer, weights = my_executor$ref.arg.arrays)
 
 #4-4. Start to train model
@@ -92,15 +99,15 @@ for (i in 1:5000) {
 
 #5-1. Save model (Note: we need to save the 'softmax_layer' but not the 'out_layer')
 
-mx.symbol.save(softmax_layer, filename = "model/softmax_regression.json") 
-mx.nd.save(my_executor$arg.arrays[!names(my_executor$arg.arrays)%in%input_names], filename = "model/softmax_regression_arg_params.params")
-mx.nd.save(my_executor$aux.arrays, filename = "model/softmax_regression_aux_params.params")
+mx.symbol.save(softmax_layer, filename = "model/multilayer_perceptron.json") 
+mx.nd.save(my_executor$arg.arrays[!names(my_executor$arg.arrays)%in%input_names], filename = "model/multilayer_perceptron_arg_params.params")
+mx.nd.save(my_executor$aux.arrays, filename = "model/multilayer_perceptron_aux_params.params")
 
 #5-2. Load model
 
-My_sym = mx.symbol.load("model/softmax_regression.json")
-My_arg_params = mx.nd.load("model/softmax_regression_arg_params.params")
-My_aux_params = mx.nd.load("model/softmax_regression_aux_params.params")
+My_sym = mx.symbol.load("model/multilayer_perceptron.json")
+My_arg_params = mx.nd.load("model/multilayer_perceptron_arg_params.params")
+My_aux_params = mx.nd.load("model/multilayer_perceptron_aux_params.params")
 
 #5-3. Inference
 
