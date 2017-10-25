@@ -1,7 +1,6 @@
 # MxNetR-examples
 
-![R](https://assets-cdn.github.com/images/topics/r.png?v=1508892931)
-![MxNetR](https://raw.githubusercontent.com/dmlc/dmlc.github.io/master/img/logo-m/mxnetR.png)
+<img src="https://raw.githubusercontent.com/dmlc/dmlc.github.io/master/img/logo-m/mxnetR.png" width="160" height="60" alt="MxNetR"/><img src="https://assets-cdn.github.com/images/topics/r.png?v=1508892931" width="60" height="60" alt="RLogo"/>
 
 This project provides a series of example for letting readers to get started quickly. Especially, these examples were all based on R langugue, and the whole file is a Rstudio project. 
 First, you need to instal the MXNet package in your computer ([here](https://mxnet.incubator.apache.org/get_started/windows_setup.html#install-mxnet-for-r) is the official website). MXNet for R is available for both CPUs and GPUs. For Windows users, MXNet provides prebuilt binary packages. You can install the package directly in the R console.
