@@ -1,0 +1,77 @@
+{
+  "nodes": [
+    {
+      "op": "null", 
+      "name": "data", 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "fc_layer_1_weight", 
+      "attr": {"num_hidden": "12"}, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "fc_layer_1_bias", 
+      "attr": {"num_hidden": "12"}, 
+      "inputs": []
+    }, 
+    {
+      "op": "FullyConnected", 
+      "name": "fc_layer_1", 
+      "attr": {"num_hidden": "12"}, 
+      "inputs": [[0, 0, 0], [1, 0, 0], [2, 0, 0]]
+    }, 
+    {
+      "op": "Activation", 
+      "name": "sigmoid_layer_1", 
+      "attr": {"act_type": "sigmoid"}, 
+      "inputs": [[3, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "fc_layer_2_weight", 
+      "attr": {"num_hidden": "3"}, 
+      "inputs": []
+    }, 
+    {
+      "op": "null", 
+      "name": "fc_layer_2_bias", 
+      "attr": {"num_hidden": "3"}, 
+      "inputs": []
+    }, 
+    {
+      "op": "FullyConnected", 
+      "name": "fc_layer_2", 
+      "attr": {"num_hidden": "3"}, 
+      "inputs": [[4, 0, 0], [5, 0, 0], [6, 0, 0]]
+    }, 
+    {
+      "op": "null", 
+      "name": "label", 
+      "inputs": []
+    }, 
+    {
+      "op": "SoftmaxOutput", 
+      "name": "sofmax_layer", 
+      "inputs": [[7, 0, 0], [8, 0, 0]]
+    }
+  ], 
+  "arg_nodes": [0, 1, 2, 5, 6, 8], 
+  "node_row_ptr": [
+    0, 
+    1, 
+    2, 
+    3, 
+    4, 
+    5, 
+    6, 
+    7, 
+    8, 
+    9, 
+    10
+  ], 
+  "heads": [[9, 0, 0]], 
+  "attrs": {"mxnet_version": ["int", 1001]}
+}

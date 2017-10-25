@@ -9,7 +9,7 @@ Y.array = array(t(model.matrix(~ -1 + iris[,5])), dim = c(3, 150))
 
 #2. Define the data iterator
 
-batch_size = 100
+batch_size = 50
 
 my_iterator = function(batch_size) {
   
@@ -40,11 +40,13 @@ my_iter = my_iterator(batch_size)
 
 #Tip: for the deeper and complex model, you can use 'mx.symbol.infer.shape' function to check the output datashape
 
+
 data = mx.symbol.Variable(name = 'data')
 label = mx.symbol.Variable(name = 'label')
 fc_layer_1 = mx.symbol.FullyConnected(data = data, num.hidden = 12, name = 'fc_layer_1')
+sigmoid_layer_1 = mx.symbol.Activation(data = fc_layer_1, act.type = 'sigmoid', name = 'sigmoid_layer_1')
 #mx.symbol.infer.shape(fc_layer_1, data = c(4, 150))$out.shapes
-fc_layer_2 = mx.symbol.FullyConnected(data = fc_layer_1, num.hidden = 3, name = 'fc_layer_2')
+fc_layer_2 = mx.symbol.FullyConnected(data = sigmoid_layer_1, num.hidden = 3, name = 'fc_layer_2')
 #mx.symbol.infer.shape(fc_layer_2, data = c(4, 150))$out.shapes
 softmax_layer = mx.symbol.SoftmaxOutput(data = fc_layer_2, label = label, name = 'sofmax_layer')
 #mx.symbol.infer.shape(softmax_layer, data = c(4, 150), label = c(3, 150))$out.shapes
@@ -75,7 +77,7 @@ my_updater = mx.opt.get.updater(optimizer = my_optimizer, weights = my_executor$
 
 my_iter$reset()
 
-for (i in 1:5000) {
+for (i in 1:3000) {
   
   my_iter$iter.next()
   

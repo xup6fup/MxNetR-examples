@@ -14,8 +14,9 @@ Y.array = array(t(model.matrix(~ -1 + iris[,5])), dim = c(3, 150))
 data = mx.symbol.Variable(name = 'data')
 label = mx.symbol.Variable(name = 'label')
 fc_layer_1 = mx.symbol.FullyConnected(data = data, num.hidden = 12, name = 'fc_layer_1')
+sigmoid_layer_1 = mx.symbol.Activation(data = fc_layer_1, act.type = 'sigmoid', name = 'sigmoid_layer_1')
 #mx.symbol.infer.shape(fc_layer_1, data = c(4, 150))$out.shapes
-fc_layer_2 = mx.symbol.FullyConnected(data = fc_layer_1, num.hidden = 3, name = 'fc_layer_2')
+fc_layer_2 = mx.symbol.FullyConnected(data = sigmoid_layer_1, num.hidden = 3, name = 'fc_layer_2')
 #mx.symbol.infer.shape(fc_layer_2, data = c(4, 150))$out.shapes
 out_layer = mx.symbol.SoftmaxOutput(data = fc_layer_2, label = label, name = 'out_layer')
 #mx.symbol.infer.shape(out_layer, data = c(4, 150), label = c(3, 150))$out.shapes
@@ -31,7 +32,7 @@ my.eval.metric.mlogloss <- mx.metric.custom(
     pred1 = as.numeric(pred)
     pred1[pred1 <= 1e-6] = 1e-6
     pred1[pred1 >= 1 - 1e-6] = 1 - 1e-6
-    return(-mean(real1 * log(pred1) + (1 - real1) * log(1 - pred1), na.rm = TRUE))
+    return(-mean(real1 * log(pred1), na.rm = TRUE))
   }
 )
 
