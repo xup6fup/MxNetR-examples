@@ -19,6 +19,8 @@ out_layer = mx.symbol.LinearRegressionOutput(data = fc_layer, label = label, nam
 
 #3. Training model
 
+mx.set.seed(0)
+
 logger = mx.metric.logger$new()
 
 lr_model = mx.model.FeedForward.create(out_layer,

@@ -36,6 +36,8 @@ my.eval.metric.CE <- mx.metric.custom(
 
 #3-2. Training
 
+mx.set.seed(0)
+
 logger = mx.metric.logger$new()
 
 logistic_model = mx.model.FeedForward.create(out_layer,

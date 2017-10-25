@@ -107,7 +107,7 @@ My_aux_params = mx.nd.load("model/linear_regression_aux_params.params")
 #5-3. Inference
 
 My_exec = mx.simple.bind(symbol = My_sym, data = c(2, 1000), ctx = mx.cpu(), grad.req = "null")
-mx.exec.update.arg.arrays(My_exec, My_arg_params[!names(My_arg_params)%in%input_names], match.name = TRUE)
+mx.exec.update.arg.arrays(My_exec, My_arg_params, match.name = TRUE)
 mx.exec.update.aux.arrays(My_exec, My_aux_params, match.name = TRUE)
 mx.exec.update.arg.arrays(My_exec, list(data = mx.nd.array(X.array)), match.name = TRUE)
 mx.exec.forward(My_exec, is.train = TRUE)
