@@ -12,9 +12,10 @@ options(repos = cran)
 install.packages("mxnet")
 ```
 
-Now, you can follow these examples for futher learning MxNet.
-
 To use the GPU version or to use it on Linux, please follow [Installation Guide](http://mxnet.io/get_started/install.html)
+
+Now, you can follow these examples for futher learning MxNet. If you are a beginner, I suggest you can start from '1. Basic models'. Although these models are easy, and many other R-packages can achieve them. It may helps you to understand more clearly MxNet. All of examples in '1. Basic models' include 'Standard example' and 'Customize the iterator'. The 'Standard example' is to use 'mx.model.FeedForward.create' function to implement optimization, but this function only can handle limited data format and label format. The 'Customize the iterator' step by step help you build your **loss function**, **data iterator**, and **optimizer**. This can help you to implement your specific models.
+
 
 License
 -------
