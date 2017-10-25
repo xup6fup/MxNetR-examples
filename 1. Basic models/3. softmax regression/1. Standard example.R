@@ -25,7 +25,7 @@ my.eval.metric.mlogloss <- mx.metric.custom(
     pred1 = as.numeric(pred)
     pred1[pred1 <= 1e-6] = 1e-6
     pred1[pred1 >= 1 - 1e-6] = 1 - 1e-6
-    return(-mean(real1 * log(pred1) + (1 - real1) * log(1 - pred1), na.rm = TRUE))
+    return(-mean(real1 * log(pred1), na.rm = TRUE))
   }
 )
 

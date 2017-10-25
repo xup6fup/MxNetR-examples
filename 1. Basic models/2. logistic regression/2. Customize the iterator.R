@@ -63,6 +63,7 @@ my_executor = mx.simple.bind(symbol = out_layer, data = c(2, batch_size), label 
 
 #4-2. Set the initial parameters
 
+mx.set.seed(0)
 new_arg = mxnet:::mx.model.init.params(symbol = out_layer, input.shape = list(data = c(2, batch_size), label = c(batch_size)), output.shape = NULL, initializer = mxnet:::mx.init.uniform(0.01), ctx = mx.cpu())
 mx.exec.update.arg.arrays(my_executor, new_arg$arg.params, match.name = TRUE)
 mx.exec.update.aux.arrays(my_executor, new_arg$aux.params, match.name = TRUE)

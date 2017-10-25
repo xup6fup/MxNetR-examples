@@ -9,7 +9,7 @@ Y.array = array(t(model.matrix(~ -1 + iris[,5])), dim = c(3, 150))
 
 #2. Define the data iterator
 
-batch_size = 100
+batch_size = 50
 
 my_iterator = function(batch_size) {
   
@@ -55,13 +55,14 @@ my_executor = mx.simple.bind(symbol = out_layer, data = c(4, batch_size), label 
 
 #4-2. Set the initial parameters
 
+mx.set.seed(0)
 new_arg = mxnet:::mx.model.init.params(symbol = out_layer, input.shape = list(data = c(4, batch_size), label = c(3, batch_size)), output.shape = NULL, initializer = mxnet:::mx.init.uniform(0.01), ctx = mx.cpu())
 mx.exec.update.arg.arrays(my_executor, new_arg$arg.params, match.name = TRUE)
 mx.exec.update.aux.arrays(my_executor, new_arg$aux.params, match.name = TRUE)
 
 #4-3. Define the optimizer
 
-my_optimizer = mx.opt.create(name = "sgd", learning.rate = 0.1, momentum = 0, wd = 0, rescale.grad = 1, clip_gradient = 1)
+my_optimizer = mx.opt.create(name = "sgd", learning.rate = 0.01, momentum = 0, wd = 0, rescale.grad = 1, clip_gradient = 1)
 my_updater = mx.opt.get.updater(optimizer = my_optimizer, weights = my_executor$ref.arg.arrays)
 
 #4-4. Start to train model

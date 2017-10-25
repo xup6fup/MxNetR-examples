@@ -14,12 +14,14 @@ install.packages("mxnet")
 
 To use the GPU version or to use it on Linux, please follow [Installation Guide](http://mxnet.io/get_started/install.html)
 
-Now, you can follow these examples for futher learning MxNet. If you are a beginner, I suggest you can start from **1. Basic models**. Although these models are easy, and many other R-packages can achieve them. It may helps you to understand more clearly MxNet. All of examples in **1. Basic models** include **Standard example** and **Customize the iterator**. The **Standard example** is to use **mx.model.FeedForward.create** function to implement optimization, but this function only can handle limited data format and label format. The **Customize the iterator** step by step help you build your **loss function**, **data iterator**, and **optimizer**. This can help you to implement your specific models.
+Now, you can follow these examples for futher learning MxNet. If you are a beginner, I suggest you can start from **1. Basic models**. Although these models are easy, and many other R-packages can achieve them. It may helps you to understand more clearly MxNet. All of examples in **1. Basic models** include **Standard example** and **Customize the iterator**. The **Standard example** is to use **mx.model.FeedForward.create** function to implement optimization, but this function only can handle limited data format and label format. The **Customize the iterator** step by step help you build your **loss function**, **data iterator**, and **optimizer**. This can help you to implement your special models.
 
 Tutorials
 -------
 
-[1. Basic models](https://github.com/xup6fup/MxNetR-examples/tree/master/1.%20Basic%20models)
+**[1. Basic models](https://github.com/xup6fup/MxNetR-examples/tree/master/1.%20Basic%20models)**
+
+Regression and classification are classical task of machine learning. They are easy to be understanded. Following simple examples will help you step by step to learn the principle of MxNet.
 
 [1-1. linear regression](https://github.com/xup6fup/MxNetR-examples/tree/master/1.%20Basic%20models/1.%20linear%20regression)
 
@@ -41,7 +43,9 @@ Under MxNet environment, the difference between multilayer perceptron and regres
 
 Deep learning is so easy using MxNet? Although it looks just adding few layers but not yet! **Vanishing gradient problem** is a major issue in deep learning training. This tutorial includes a **vanishing gradient problem**, and this example can help users to visualize and solve this problem.
 
-[2. Convolutional Neural Networks](https://github.com/xup6fup/MxNetR-examples/tree/master/2.%20Convolutional%20Neural%20Networks)
+**[2. Convolutional Neural Networks](https://github.com/xup6fup/MxNetR-examples/tree/master/2.%20Convolutional%20Neural%20Networks)**
+
+Convolutional Neural Network (CNN) is a class of deep, feed-forward artificial neural networks that has successfully been applied to analyzing visual imagery. Moreover, it also has been applied in some natural language processing tasks.
 
 [2-1. LeNet for MNIST](https://github.com/xup6fup/MxNetR-examples/tree/master/2.%20Convolutional%20Neural%20Networks/1.%20LeNet%20for%20MNIST)
 
