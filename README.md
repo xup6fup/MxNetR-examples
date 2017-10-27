@@ -55,6 +55,20 @@ The MNIST database of handwritten digits has a training set of 60,000 examples, 
 
 Training a complex convolutional neural networks will take so much time! This example can let users to know how to use pre-trained model.
 
+**[3. Recurrent Neural Network](https://github.com/xup6fup/MxNetR-examples/tree/master/3.%20Recurrent%20Neural%20Network)**
+
+Recurrent Neural Network (RNN) is a class of artificial neural network where connections between units form a directed cycle. RNN can use their internal memory to process arbitrary sequences of inputs.
+
+[3-1. Time series prediction](https://github.com/xup6fup/MxNetR-examples/tree/master/3.%20Recurrent%20Neural%20Network/1.%20Time%20series%20prediction)
+
+Note: this example is not yet perfect.
+
+The first example is a sequence of continuous variable sampling by austres database. I will demo a dual channel design for handling **unequal length** data.
+
+**[Others](https://github.com/xup6fup/MxNetR-examples/tree/master/Others)**
+
+There are some usefull skills for using MxNetR. Try it!
+
 License
 -------
 MXNet R-package is licensed under [Apache-2.0](https://github.com/apache/incubator-mxnet/blob/master/R-package/LICENSE) license.
