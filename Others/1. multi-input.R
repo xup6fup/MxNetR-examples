@@ -51,9 +51,11 @@ data2 = mx.symbol.Variable(name = 'data2')
 label = mx.symbol.Variable(name = 'label')
 
 fc1_layer = mx.symbol.FullyConnected(data = data1, num.hidden = 1, name = 'fc1_layer')
+tanh1_layer = mx.symbol.Activation(data = fc1_layer, act.type = 'tanh')
 fc2_layer = mx.symbol.FullyConnected(data = data2, num.hidden = 1, name = 'fc2_layer')
+tanh2_layer = mx.symbol.Activation(data = fc2_layer, act.type = 'tanh')
 
-fc_list = list(fc1_layer, fc2_layer)
+tanh_list = list(tanh1_layer, tanh2_layer)
 
 #Tip-1: The 'dim' meaning the conbining dimention, and it is in the order of 0, 1, 2,
 #       ... but not 1, 2, 3, ...
@@ -65,13 +67,13 @@ fc_list = list(fc1_layer, fc2_layer)
 #       1, 0 in this data, so we need to assign 1 in this example.
 #Tip-2: Please use 'mx.symbol.infer.shape' function to check the output datashape.
 
-fc_list$dim = 1
-fc_list$num.args = 2
-fc_concat = mxnet:::mx.varg.symbol.Concat(fc_list)
+tanh_list$dim = 1
+tanh_list$num.args = 2
+tanh_concat = mxnet:::mx.varg.symbol.Concat(tanh_list)
 
 #mx.symbol.infer.shape(fc_concat, data1 = c(2, batch_size), data2 = c(2, batch_size))$out.shapes
 
-linear_out = mx.symbol.FullyConnected(data = fc_concat, num.hidden = 1, name = 'linear_out')
+linear_out = mx.symbol.FullyConnected(data = tanh_concat, num.hidden = 1, name = 'linear_out')
 
 #Tip-3: Because our model is too deep that loss gradient cannot send to first 2 layers.
 #       To define a small weight for first 2 layers in loss function can solve this problem.
@@ -79,6 +81,8 @@ linear_out = mx.symbol.FullyConnected(data = fc_concat, num.hidden = 1, name = '
 #       You can try 
 
 loss_out = linear_out * 0.998 + fc1_layer * 0.001 + fc2_layer * 0.001
+#loss_out = linear_out
+
 
 #Try it: You can try to replace 'loss_out = linear_out' from above commond, and this trainning will fail. 
 

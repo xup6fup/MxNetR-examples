@@ -139,24 +139,24 @@ for (i in 1:5000) {
 
 #5-1. Save model (Note: we need to save the 'fc_layer' but not the 'out_layer')
 
-#mx.symbol.save(fc_layer, filename = "model/linear_regression.json")
-#mx.nd.save(my_executor$arg.arrays[!names(my_executor$arg.arrays)%in%input_names], filename = "model/linear_regression_arg_params.params")
-#mx.nd.save(my_executor$aux.arrays, filename = "model/linear_regression_aux_params.params")
+mx.symbol.save(fc_layer, filename = "model/linear_regression.json")
+mx.nd.save(my_executor_list[[1]]$arg.arrays[!names(my_executor_list[[1]]$arg.arrays)%in%input_names], filename = "model/linear_regression_arg_params.params")
+mx.nd.save(my_executor_list[[1]]$aux.arrays, filename = "model/linear_regression_aux_params.params")
 
 #5-2. Load model
 
-#My_sym = mx.symbol.load("model/linear_regression.json")
-#My_arg_params = mx.nd.load("model/linear_regression_arg_params.params")
-#My_aux_params = mx.nd.load("model/linear_regression_aux_params.params")
+My_sym = mx.symbol.load("model/linear_regression.json")
+My_arg_params = mx.nd.load("model/linear_regression_arg_params.params")
+My_aux_params = mx.nd.load("model/linear_regression_aux_params.params")
 
 #5-3. Inference
 
-#My_exec = mx.simple.bind(symbol = My_sym, data = c(2, 1000), ctx = mx.cpu(), grad.req = "null")
-#mx.exec.update.arg.arrays(My_exec, My_arg_params, match.name = TRUE)
-#mx.exec.update.aux.arrays(My_exec, My_aux_params, match.name = TRUE)
-#mx.exec.update.arg.arrays(My_exec, list(data = mx.nd.array(X.array)), match.name = TRUE)
-#mx.exec.forward(My_exec, is.train = TRUE)
+My_exec = mx.simple.bind(symbol = My_sym, data = c(2, 1000), ctx = mx.cpu(), grad.req = "null")
+mx.exec.update.arg.arrays(My_exec, My_arg_params, match.name = TRUE)
+mx.exec.update.aux.arrays(My_exec, My_aux_params, match.name = TRUE)
+mx.exec.update.arg.arrays(My_exec, list(data = mx.nd.array(X.array)), match.name = TRUE)
+mx.exec.forward(My_exec, is.train = TRUE)
 
-#predict_Y = My_exec$ref.outputs$fc_layer_output
-#RMSE = mean((as.array(predict_Y) - Y.array)^2)
-#print(RMSE)
+predict_Y = My_exec$ref.outputs$fc_layer_output
+RMSE = mean((as.array(predict_Y) - Y.array)^2)
+print(RMSE)
