@@ -61,9 +61,7 @@ Recurrent Neural Network (RNN) is a class of artificial neural network where con
 
 [3-1. Time series prediction](https://github.com/xup6fup/MxNetR-examples/tree/master/3.%20Recurrent%20Neural%20Network/1.%20Time%20series%20prediction)
 
-Note: this example is not yet perfect.
-
-The first example is a sequence of continuous variable sampling by austres database. I will demo a dual channel design for handling **unequal length** data.
+The first example is a sequence of continuous variable sampling by austres database.
 
 **[Others](https://github.com/xup6fup/MxNetR-examples/tree/master/Others)**
 
