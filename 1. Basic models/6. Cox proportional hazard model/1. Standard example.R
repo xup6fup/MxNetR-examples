@@ -23,6 +23,8 @@ for (i in 1:nrow(ovarian)) {
   }
 }
 
+Y.array
+
 #2. Define the model architecture
 
 data = mx.symbol.Variable(name = 'data')
@@ -45,8 +47,11 @@ my.eval.metric.CE <- mx.metric.custom(
     pred.array = as.array(pred)
     cum_pred.array = apply(pred.array, 2, cumsum)
     cum_pred.array[cum_pred.array == 0] = 1e-9
-    surv_pred.array = 1 - exp(-cum_pred.array)
+    surv_pred.array = exp(-cum_pred.array)
     CE = log(surv_pred.array) * real.array + log(1 - surv_pred.array) * (1 - real.array)
+    #pred.array[pred.array == 0] = 1e-9
+    #pred.array = exp(-pred.array)
+    #CE = log(pred.array) * real.array + log(1 - pred.array) * (1 - real.array)
     return(-mean(CE, na.rm = TRUE))
   }
 )
@@ -59,11 +64,10 @@ logger = mx.metric.logger$new()
 
 cox_model = mx.model.FeedForward.create(out_layer,
                                         X = X.array, y = Y.array,
-                                        ctx = mx.cpu(), num.round = 1000,
-                                        array.batch.size = 10, learning.rate = 0.00001,
-                                        momentum = 0, wd = 0, array.layout = "colmajor",
+                                        ctx = mx.cpu(), num.round = 50,
+                                        array.batch.size = 25, learning.rate = 0.0005,
+                                        momentum = 0, wd = 0.001, array.layout = "colmajor",
                                         eval.metric = my.eval.metric.CE,
-                                        arg.params = new_arg$arg.params,
                                         epoch.end.callback = mx.callback.log.train.metric(5, logger))
 
 #new_arg$arg.params$lp_layer_weight = cox_model$arg.params$lp_layer_weight
@@ -81,4 +85,4 @@ cox_model = mx.model.FeedForward.create(out_layer,
 #4-3. Inference
 
 predict_Y = predict(cox_model, X.array, array.layout = "colmajor")
-survival_table = exp(-apply(predict_Y, 2, cumsum))
+surv_table = exp(-apply(predict_Y, 2, cumsum))
